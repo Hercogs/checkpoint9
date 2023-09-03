@@ -26,7 +26,7 @@ private:
     this->timer->cancel();
 
     auto msg = std_msgs::msg::Float32MultiArray();
-    float velocity = 1.0;
+    float velocity = 2.5;
 
     RCLCPP_INFO(this->get_logger(), "Moving forward for 3 seconds ...");
     msg.set__data(std::vector<float>{velocity, velocity, velocity, velocity});
