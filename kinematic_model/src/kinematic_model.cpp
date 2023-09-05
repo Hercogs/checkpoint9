@@ -11,7 +11,7 @@ class KinematicModel : public rclcpp::Node {
 public:
   KinematicModel() : Node("kinematic_model") {
     timer =
-        this->create_wall_timer(std::chrono::milliseconds(50),
+        this->create_wall_timer(std::chrono::milliseconds(30),
                                 std::bind(&KinematicModel::timer_clb, this));
 
     sub = this->create_subscription<std_msgs::msg::Float32MultiArray>(
@@ -35,6 +35,7 @@ private:
   arma::fmat A;
   arma::fmat inv_A;
 
+  // Robot parameters
   float L = 0.17 / 2;
   float R = 0.1 / 2;
   float W = 0.26969 / 2;
@@ -49,6 +50,8 @@ private:
     this->velocity.angular.z = w[0];
     this->velocity.linear.x = w[1];
     this->velocity.linear.y = w[2];
+
+    // RCLCPP_INFO(this->get_logger(), "X: %.2f", this->velocity.linear.x);
   }
 };
 
